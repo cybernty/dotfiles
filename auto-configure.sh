@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+set -Eeuxo pipefail
 
 
 help() {
@@ -31,7 +31,7 @@ parse_args() {
 }
 
 
-base() {
+_base() {
     systemctl enable dhcpcd.service
     systemctl start dhcpcd.service
     systemctl status dhcpcd.service
@@ -56,7 +56,7 @@ base() {
 }
 
 
-fonts() {
+_fonts() {
     sudo pacman -S noto-fonts \
                     noto-fonts-cjk \
                     noto-fonts-emoji \
@@ -77,14 +77,25 @@ _zsh() {
 }
 
 
+_dwm() {
+    sudo pacman -S xorg xorg-xinit
+
+    make
+    cp /etc/X11/xinit/xinitrc ~/.xinitrc
+    nvim ~/.xinitrc
+    startx
+}
+
+
 main() {
     parse_args "$@"
 
     if (( "$(id -u)" == 0 )); then
-        base
+        _base
     else
-        fonts
+        _fonts
         _zsh
+        _dwm
     fi
 
 }
