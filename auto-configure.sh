@@ -56,9 +56,23 @@ base() {
 }
 
 
+fonts() {
+    sudo pacman -S noto-fonts \
+                    noto-fonts-cjk \
+                    noto-fonts-emoji \
+                    noto-fonts-extra
+}
+
+
 main() {
     parse_args "$@"
-    base
+
+    if (( "$(id -u)" == 0 )); then
+        base
+    else
+        fonts
+    fi
+
 }
 
 
