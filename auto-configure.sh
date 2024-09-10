@@ -31,7 +31,7 @@ parse_args() {
 }
 
 
-_base() {
+base() {
     systemctl enable dhcpcd.service
     systemctl start dhcpcd.service
     systemctl status dhcpcd.service
@@ -56,7 +56,7 @@ _base() {
 }
 
 
-_fonts() {
+fonts() {
     sudo pacman -S noto-fonts \
                     noto-fonts-cjk \
                     noto-fonts-emoji \
@@ -64,7 +64,7 @@ _fonts() {
 }
 
 
-_zsh() {
+shell() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
@@ -72,18 +72,34 @@ _zsh() {
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
     sed -i '/^plugins=/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' ~/.zshrc
     sed -i '/^ZSH_THEME=/c\ZSH_THEME="powerlevel10k/powerlevel10k"' ~/.zshrc
-
-    exec zsh
 }
 
 
-_dwm() {
+window_manager() {
     sudo pacman -S xorg xorg-xinit
 
     make
-    cp /etc/X11/xinit/xinitrc ~/.xinitrc
-    nvim ~/.xinitrc
+    cp .xinitrc ~/.xinitrc
     startx
+}
+
+
+display_manager() {
+    sudo pacman -S lightdm lightdm-gtk-greeter
+
+    sudo mkdir -p /usr/share/xsessions
+cat <<EOF | sudo tee /usr/share/xsessions/dwm.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=Dwm
+Comment=the dynamic window manager
+Exec=dwm
+Icon=dwm
+Type=XSession
+EOF
+
+    lightdm --test-mode --debug
+    sudo systemctl enable lightdm.service
 }
 
 
@@ -91,11 +107,12 @@ main() {
     parse_args "$@"
 
     if (( "$(id -u)" == 0 )); then
-        _base
+        base
     else
-        _fonts
-        _zsh
-        _dwm
+        fonts
+        shell
+        window_manager
+        display_manager
     fi
 
 }
