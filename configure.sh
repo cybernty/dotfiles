@@ -42,7 +42,6 @@ base() {
     pacman -S base-devel \
                 fastfetch \
                 git \
-                htop \
                 man \
                 neovim \
                 openssh \
@@ -65,11 +64,11 @@ fonts() {
 
 
 shell() {
-    (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)") &
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
     sed -i '/^plugins=/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' ~/.zshrc
     sed -i '/^ZSH_THEME=/c\ZSH_THEME="powerlevel10k/powerlevel10k"' ~/.zshrc
 }
@@ -103,21 +102,6 @@ EOF
 }
 
 
-aur() {
-    git clone https://aur.archlinux.org/yay.git --depth 1 && cd yay
-    makepkg -si
-    yay --version
-    pacman -Qs yay
-}
-
-
-vscode() {
-    yay -S visual-studio-code-bin
-
-    code --install-extension ms-azuretools.vscode-docker
-}
-
-
 _git() {
     git config --global user.name local
     git config --global user.email local
@@ -130,7 +114,24 @@ Host github.com
     IdentityFile ~/.ssh/github
 EOF
 
-    yay lazygit
+    sudo pacman -S lazygit
+}
+
+
+aur() {
+    git clone --depth 1 https://aur.archlinux.org/yay.git && cd yay
+    makepkg -si
+    yay --version
+    pacman -Qs yay
+}
+
+
+editor() {
+    yay -S visual-studio-code-bin
+    code --install-extension ms-azuretools.vscode-docker
+
+    [ -d ~/.config/nvim ] && mv ~/.config/nvim{,.bak}
+    git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
 }
 
 
@@ -148,7 +149,7 @@ QT_IM_MODULE=fcitx
 XMODIFIERS=@im=fcitx
 EOF
     # fcitx5-configtool
-    echo 'fcitx5 -d' >> ~/.zshrc
+    echo 'fcitx5 -d &>/dev/null' >> ~/.zshrc
 }
 
 
@@ -160,29 +161,45 @@ dev_env() {
     # - [Arch Linux - Package Search](https://archlinux.org/packages/?name=wmname)
     # - [tools | suckless.org software that sucks less](https://tools.suckless.org/x/wmname/)
     sudo pacman -S wmname
-    wmname LG3D
+    # wmname LG3D
     # idea &
 }
 
 
-clis() {
-    sudo pacman -S tree netcat dua-cli
-    yay unzip
-    yay zellij
-    yay fd
-
-    yay yazi
-    yay fzf
+terminal() {
     yay alacritty
+}
+
+
+terminal_multiplexer() {
     yay tmux
+    yay zellij
+}
 
-    mv ~/.config/nvim{,.bak}
-    git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
 
-    yay bat
+file_manager() {
+    yay yazi
+}
+
+
+monitor() {
+    yay htop
     yay conky
+}
+
+
+clis() {
+    sudo pacman -S dua-cli \
+                    tree \
+                    netcat \
+                    unzip
+    yay fd
+    yay fzf
     yay polybar
     yay pandoc
+
+    yay bat
+    echo "alias cat='bat'" >> ~/.zshrc
 }
 
 
@@ -196,12 +213,16 @@ main() {
         shell
         window_manager
         display_manager
-        aur
-        vscode
         _git
+        aur
+        editor
         browser
         input_method
         dev_env
+        terminal
+        terminal_multiplexer
+        file_manager
+        monitor
         clis
     fi
     reboot
