@@ -65,7 +65,7 @@ fonts() {
 
 
 shell() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)") &
 
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
@@ -142,12 +142,12 @@ browser() {
 input_method() {
     sudo pacman -S fcitx5-im
     sudo pacman -S fcitx5-chinese-addons
-    sudo nvim /etc/environment
-    # GTK_IM_MODULE=fcitx
-    # QT_IM_MODULE=fcitx
-    # XMODIFIERS=@im=fcitx
-    reboot
-    fcitx5-configtool
+cat <<EOF | sudo tee -a /etc/environment
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+EOF
+    # fcitx5-configtool
     echo 'fcitx5 -d' >> ~/.zshrc
 }
 
@@ -161,7 +161,7 @@ dev_env() {
     # - [tools | suckless.org software that sucks less](https://tools.suckless.org/x/wmname/)
     sudo pacman -S wmname
     wmname LG3D
-    idea
+    # idea &
 }
 
 
@@ -204,6 +204,7 @@ main() {
         dev_env
         clis
     fi
+    reboot
 }
 
 
