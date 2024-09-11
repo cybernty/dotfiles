@@ -45,8 +45,8 @@ base() {
         zsh
     ln -s /usr/bin/nvim /usr/bin/vi
 
-    useradd -m -G wheel -s /bin/zsh develop
-    passwd develop
+    useradd -m -G wheel -s /bin/zsh dev
+    passwd dev
     visudo
     reboot
 }
@@ -117,7 +117,7 @@ aur() {
 }
 
 editor() {
-    yay -S visual-studio-code-bin
+    yay visual-studio-code-bin
     code --install-extension ms-azuretools.vscode-docker
 
     [ -d ~/.config/nvim ] && mv ~/.config/nvim{,.bak}
