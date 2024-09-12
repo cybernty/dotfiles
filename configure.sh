@@ -107,6 +107,7 @@ Host github.com
 EOF
 
     sudo pacman -S lazygit
+    echo "alias lg='lazygit'" >>~/.zshrc
 }
 
 aur() {
@@ -118,7 +119,6 @@ aur() {
 
 editor() {
     yay visual-studio-code-bin
-    code --install-extension ms-azuretools.vscode-docker
 
     [ -d ~/.config/nvim ] && mv ~/.config/nvim{,.bak}
     git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
@@ -136,12 +136,12 @@ GTK_IM_MODULE=fcitx
 QT_IM_MODULE=fcitx
 XMODIFIERS=@im=fcitx
 EOF
-    # fcitx5-configtool
     echo 'fcitx5 -d &>/dev/null' >>~/.zshrc
+    # fcitx5-configtool
 }
 
 dev_env() {
-    sudo pacman -S jdk21-openjdk maven intellij-idea-community-edition
+    sudo pacman -S jdk21-openjdk maven
 
     # - [Java - ArchWiki](https://wiki.archlinux.org/title/Java#Impersonate_another_window_manager)
     #     - [Java - Arch Linux 中文维基](https://wiki.archlinuxcn.org/wiki/Java)
@@ -152,6 +152,18 @@ dev_env() {
     # idea &
 }
 
+_docker() {
+    sudo pacman -S docker
+    sudo systemctl start docker.service
+    sudo systemctl enable docker.service
+    sudo usermod -aG docker $USER
+    newgrp docker
+    docker images -a; echo; docker ps -a
+
+    sudo pacman -S docker-compose
+    docker-compose --version
+}
+
 terminal() {
     yay alacritty
 }
@@ -159,10 +171,12 @@ terminal() {
 terminal_multiplexer() {
     yay tmux
     yay zellij
+    echo "alias tmux='zellij'" >>~/.zshrc
 }
 
 file_manager() {
     yay yazi
+    echo "alias fm='yazi'" >>~/.zshrc
 }
 
 monitor() {
@@ -200,6 +214,7 @@ main() {
         browser
         input_method
         dev_env
+        _docker
         terminal
         terminal_multiplexer
         file_manager
