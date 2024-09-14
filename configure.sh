@@ -198,6 +198,12 @@ clis() {
     echo "alias cat='bat'" >>~/.zshrc
 }
 
+_wireshark() {
+    sudo pacman -S wireshark-qt
+    sudo usermod -aG wireshark $USER
+    newgrp wireshark
+}
+
 main() {
     parse_args "$@"
 
@@ -220,6 +226,7 @@ main() {
         file_manager
         monitor
         clis
+        _wireshark
     fi
     reboot
 }
