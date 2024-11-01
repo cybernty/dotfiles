@@ -29,14 +29,14 @@ parse_args() {
 }
 
 base() {
-    systemctl enable dhcpcd.service
-    systemctl start dhcpcd.service
+    systemctl enable --now dhcpcd.service
     systemctl status dhcpcd.service
     ping -c3 www.google.com
 
     sed -i 's/#Color/Color/' /etc/pacman.conf
     pacman -Syu
-    pacman -S base-devel \
+    pacman -S \
+        base-devel \
         fastfetch \
         git \
         man \
@@ -45,7 +45,7 @@ base() {
         zsh
     ln -s /usr/bin/nvim /usr/bin/vi
 
-    useradd -m -G wheel -s /bin/zsh dev
+    useradd -mG wheel -s /bin/zsh dev
     passwd dev
     visudo
     reboot
@@ -118,7 +118,7 @@ aur() {
 }
 
 editor() {
-    yay visual-studio-code-bin
+    yay -S visual-studio-code-bin
 
     [ -d ~/.config/nvim ] && mv ~/.config/nvim{,.bak}
     git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
@@ -132,9 +132,12 @@ input_method() {
     sudo pacman -S fcitx5-im
     sudo pacman -S fcitx5-chinese-addons
     cat <<EOF | sudo tee -a /etc/environment
+    cat <<EOF > ~/.config/environment.d/im.conf
 GTK_IM_MODULE=fcitx
 QT_IM_MODULE=fcitx
 XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+GLFW_IM_MODULE=ibus
 EOF
     echo 'fcitx5 -d &>/dev/null' >>~/.zshrc
     # fcitx5-configtool
@@ -154,54 +157,53 @@ dev_env() {
 
 _docker() {
     sudo pacman -S docker
-    sudo systemctl start docker.service
-    sudo systemctl enable docker.service
+    sudo systemctl enable --now docker.service
     sudo usermod -aG docker $USER
     newgrp docker
-    docker images -a; echo; docker ps -a
+    # docker images -a; echo; docker ps -a
 
     sudo pacman -S docker-compose
-    docker-compose --version
+    docker compose version
 }
 
 terminal() {
-    yay alacritty
+    yay -S alacritty
 }
 
 terminal_multiplexer() {
-    yay tmux
-    yay zellij
+    yay -S tmux
+    yay -S zellij
     echo "alias tmux='zellij'" >>~/.zshrc
 }
 
 file_manager() {
-    yay yazi
+    yay -S yazi
     echo "alias fm='yazi'" >>~/.zshrc
 }
 
 monitor() {
-    yay htop
-    yay conky
-}
-
-clis() {
-    sudo pacman -S dua-cli \
-        tree \
-        netcat \
-        unzip
-    yay fd
-    yay fzf
-    yay polybar
-    yay pandoc
-
-    yay bat
-    echo "alias cat='bat'" >>~/.zshrc
+    yay -S htop
+    yay -S conky
 }
 
 _wireshark() {
     sudo pacman -S wireshark-qt
     sudo usermod -aG wireshark $USER
     newgrp wireshark
+}
+
+misc() {
+    sudo pacman -S dua-cli \
+        tree \
+        netcat \
+        unzip
+    yay -S fd
+    yay -S fzf
+    yay -S polybar
+    yay pandoc
+
+    yay -S bat
+    echo "alias cat='bat'" >>~/.zshrc
 }
 
 main() {
@@ -225,8 +227,8 @@ main() {
         terminal_multiplexer
         file_manager
         monitor
-        clis
         _wireshark
+        misc
     fi
     reboot
 }
