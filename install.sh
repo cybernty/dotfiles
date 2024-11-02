@@ -29,6 +29,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 exit
 umount -R /mnt
 reboot
+# ---------- end ----------
 
 # ---------- more (uefi)----------
 # ls /sys/firmware/efi/efivars
@@ -40,6 +41,7 @@ timedatectl status
 
 fdisk -l
 cfdisk
+# gpt: efi + /
 
 mkfs.vfat /dev/sda1
 mkfs.btrfs -L dev-arch-btrfs /dev/sda2
