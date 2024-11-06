@@ -1,5 +1,24 @@
 # dotfiles
 
+## Configurations
+
+| Type                     | Tool/Use                                                              |
+| ------------------------ | --------------------------------------------------------------------- |
+| **Window Manager**       | dwm                                                                   |
+| **Display Manager**      | lightdm                                                               |
+| **Shell**                | zsh                                                                   |
+| **Terminal**             | alacritty                                                             |
+| **Terminal Multiplexer** | ~~tmux~~, zellij                                                      |
+| **Editor**               | neovim  + vscode                                                      |
+| **File Manager**         | yazi                                                                  |
+| **Browser**              | chromium                                                              |
+| **Package Managers**     | pacman + yay (AUR helper)                                             |
+| **Fonts**                | Noto                                                                  |
+| **Input Method**         | fcitx5                                                                |
+| **System Monitor**       | ~~htop~~, btop, conky                                                 |
+| **Miscellaneous**        | fastfetch, lazygit, docker, wireshark, dua-cli, fd, fzf, polybar, bat |
+
+<!--
 ## Usage
 
 1. install arch linux: [guide](./install.sh)
@@ -7,22 +26,4 @@
 3. dotfiles: `pacman -S git && cd /tmp && git clone --depth 1 https://github.com/cybernty/dotfiles.git && cd dotfiles`
 4. basic config: `./configure.sh`
 5. advance: `cd /tmp && git clone --depth 1 https://github.com/cybernty/dotfiles.git && ./dotfiles/configure.sh`
-
-## List
-
-| type                 | use                                                      |
-| -------------------- | -------------------------------------------------------- |
-| window manager       | dwm                                                      |
-| display manager      | lightdm                                                  |
-| shell                | zsh(ohmyzsh)                                             |
-| terminal             | alacritty                                                |
-| terminal multiplexer | tmux, zellij                                             |
-| editor               | neovim + vscode                                          |
-| git                  | lazygit                                                  |
-| file manager         | yazi                                                     |
-| browser              | chromium                                                 |
-| package manager      | pacman + yay                                             |
-| font                 | noto                                                     |
-| input method         | fcitx5                                                   |
-| monitor              | ~~htop~~ btop, conky                                     |
-| misc                 | fastfetch, docker, wireshark, dua, fd, fzf, polybar, bat |
+-->

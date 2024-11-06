@@ -25,13 +25,17 @@ parse_args() {
             exit 1
             ;;
         esac
+        shift
     done
 }
 
 base() {
     systemctl enable --now dhcpcd.service
     systemctl status dhcpcd.service
-    ping -c3 www.google.com
+    ping -c3 www.google.com || {
+        echo "Network not reachable."
+        exit 1
+    }
 
     sed -i 's/#Color/Color/' /etc/pacman.conf
     pacman -Syu
@@ -43,11 +47,12 @@ base() {
         neovim \
         openssh \
         zsh
-    ln -s /usr/bin/nvim /usr/bin/vi
+    ln -sf /usr/bin/nvim /usr/bin/vi
 
     useradd -mG wheel -s /bin/zsh dev
     passwd dev
-    visudo
+    # visudo
+    echo "dev ALL=(ALL) ALL" | EDITOR="tee -a" visudo
     reboot
 }
 
@@ -61,7 +66,7 @@ fonts() {
 shell() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
     sed -i '/^plugins=/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' ~/.zshrc
@@ -84,7 +89,7 @@ display_manager() {
 [Desktop Entry]
 Encoding=UTF-8
 Name=Dwm
-Comment=the dynamic window manager
+Comment=The dynamic window manager
 Exec=dwm
 Icon=dwm
 Type=XSession
@@ -131,8 +136,8 @@ browser() {
 input_method() {
     sudo pacman -S fcitx5-im
     sudo pacman -S fcitx5-chinese-addons
-    cat <<EOF | sudo tee -a /etc/environment
-    cat <<EOF > ~/.config/environment.d/im.conf
+    mkdir -p ~/.config/environment.d
+    cat <<EOF | sudo tee ~/.config/environment.d/im.conf
 GTK_IM_MODULE=fcitx
 QT_IM_MODULE=fcitx
 XMODIFIERS=@im=fcitx
@@ -158,7 +163,7 @@ dev_env() {
 _docker() {
     sudo pacman -S docker
     sudo systemctl enable --now docker.service
-    sudo usermod -aG docker $USER
+    sudo usermod -aG docker "$USER"
     newgrp docker
     # docker images -a; echo; docker ps -a
 
@@ -182,13 +187,14 @@ file_manager() {
 }
 
 monitor() {
-    yay -S htop
-    yay -S conky
+    sudo pacman -S htop
+    sudo pacman -S btop
+    sudo pacman -S conky
 }
 
 _wireshark() {
     sudo pacman -S wireshark-qt
-    sudo usermod -aG wireshark $USER
+    sudo usermod -aG wireshark "$USER"
     newgrp wireshark
 }
 
