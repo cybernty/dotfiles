@@ -200,7 +200,6 @@ misc() {
     yay -S fd
     yay -S fzf
     yay -S polybar
-    yay pandoc
 
     yay -S bat
     echo "alias cat='bat'" >>~/.zshrc
