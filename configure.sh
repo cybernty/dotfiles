@@ -216,8 +216,9 @@ misc() {
     sudo pacman -S ripgrep
     which rg
 
-    sudo pacman -S mcfly
-    echo 'eval "$(mcfly init zsh)"' >>~/.zshrc
+    sudo pacman -S atuin
+    echo 'eval "$(atuin init zsh)"' >>~/.zshrc
+    # sqlite3 -json ~/.local/share/atuin/history.db 'SELECT * FROM history ;' | jq | cat
 }
 
 main() {

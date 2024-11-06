@@ -16,7 +16,7 @@
 | **Fonts**                | Noto                                                                                                                                                                   |
 | **Input Method**         | fcitx5                                                                                                                                                                 |
 | **System Monitor**       | ~~htop~~, btop, conky                                                                                                                                                  |
-| **Miscellaneous**        | fastfetch, lazygit, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep), [mcfly](https://github.com/cantino/mcfly) |
+| **Miscellaneous**        | fastfetch, lazygit, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep), [atuin](https://github.com/atuinsh/atuin) |
 
 <!--
 ## Usage
