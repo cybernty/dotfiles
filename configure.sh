@@ -212,6 +212,9 @@ misc() {
 
     yay -S bat
     echo "alias cat='bat'" >>~/.zshrc
+
+    sudo pacman -S ripgrep
+    which rg
 }
 
 main() {
