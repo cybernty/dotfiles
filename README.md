@@ -14,7 +14,7 @@
 | **Browser**              | chromium                                                                                                           |
 | **Package Managers**     | pacman + yay (AUR helper)                                                                                          |
 | **Fonts**                | Noto                                                                                                               |
-| **Input Method**         | fcitx5                                                                                                             |
+| **Input Method**         | fcitx5 + [fcitx5-nord](https://github.com/tonyfettes/fcitx5-nord)                                                  |
 | **System Monitor**       | ~~htop~~, btop, conky                                                                                              |
 | **Git**                  | lazygit, git-delta                                                                                                 |
 | **Miscellaneous**        | fastfetch, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep) |

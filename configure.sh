@@ -170,6 +170,8 @@ SDL_IM_MODULE=fcitx
 GLFW_IM_MODULE=ibus
 EOF
     echo 'fcitx5 -d &>/dev/null' >>~/.zshrc
+
+    sudo pacman -S fcitx5-nord
     # fcitx5-configtool
 }
 
