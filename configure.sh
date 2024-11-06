@@ -120,6 +120,24 @@ EOF
 
     sudo pacman -S lazygit
     echo "alias lg='lazygit'" >>~/.zshrc
+
+    sudo pacman -S git-delta
+    cat <<EOF >>~/.gitconfig
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true # use n and N to move between diff sections
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+EOF
 }
 
 aur() {
