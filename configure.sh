@@ -195,7 +195,6 @@ _wireshark() {
 misc() {
     sudo pacman -S dua-cli \
         tree \
-        netcat \
         unzip
     yay -S fd
     yay -S fzf

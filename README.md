@@ -10,14 +10,19 @@
 
 ## List
 
-| type                 | use             |
-| -------------------- | --------------- |
-| window manager       | dwm             |
-| shell                | zsh             |
-| terminal             | alacritty       |
-| terminal multiplexer | tmux, zellij    |
-| editor               | neovim + vscode |
-| file manager         | yazi            |
-| browser              | chromium        |
-| package manager      | yay             |
-| misc                 | ...             |
+| type                 | use                                                      |
+| -------------------- | -------------------------------------------------------- |
+| window manager       | dwm                                                      |
+| display manager      | lightdm                                                  |
+| shell                | zsh(ohmyzsh)                                             |
+| terminal             | alacritty                                                |
+| terminal multiplexer | tmux, zellij                                             |
+| editor               | neovim + vscode                                          |
+| git                  | lazygit                                                  |
+| file manager         | yazi                                                     |
+| browser              | chromium                                                 |
+| package manager      | pacman + yay                                             |
+| font                 | noto                                                     |
+| input method         | fcitx5                                                   |
+| monitor              | ~~htop~~ btop, conky                                     |
+| misc                 | fastfetch, docker, wireshark, dua, fd, fzf, polybar, bat |
