@@ -71,6 +71,13 @@ shell() {
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
     sed -i '/^plugins=/c\plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' ~/.zshrc
     sed -i '/^ZSH_THEME=/c\ZSH_THEME="powerlevel10k/powerlevel10k"' ~/.zshrc
+
+    sudo pacman -S atuin
+    echo 'eval "$(atuin init zsh)"' >>~/.zshrc
+    # sqlite3 -json ~/.local/share/atuin/history.db 'SELECT * FROM history ;' | jq | cat
+
+    sudo pacman -S zoxide
+    echo 'eval "$(zoxide init zsh)"' >>~/.zshrc
 }
 
 window_manager() {
@@ -215,10 +222,6 @@ misc() {
 
     sudo pacman -S ripgrep
     which rg
-
-    sudo pacman -S atuin
-    echo 'eval "$(atuin init zsh)"' >>~/.zshrc
-    # sqlite3 -json ~/.local/share/atuin/history.db 'SELECT * FROM history ;' | jq | cat
 }
 
 main() {
