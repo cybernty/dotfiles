@@ -169,6 +169,9 @@ _docker() {
 
     sudo pacman -S docker-compose
     docker compose version
+
+    yay -S lazydocker
+    echo "alias lzd='lazydocker'" >>~/.zshrc
 }
 
 terminal() {
