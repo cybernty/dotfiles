@@ -200,6 +200,7 @@ misc() {
     yay -S fd
     yay -S fzf
     yay -S polybar
+    yay -S nmap
 
     yay -S bat
     echo "alias cat='bat'" >>~/.zshrc
