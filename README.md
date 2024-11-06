@@ -2,21 +2,21 @@
 
 ## Configurations
 
-| Type                     | Tool/Use                                                                                                                    |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| **Window Manager**       | dwm                                                                                                                         |
-| **Display Manager**      | lightdm                                                                                                                     |
-| **Shell**                | zsh                                                                                                                         |
-| **Terminal**             | alacritty                                                                                                                   |
-| **Terminal Multiplexer** | ~~tmux~~, zellij                                                                                                            |
-| **Editor**               | neovim  + vscode                                                                                                            |
-| **File Manager**         | yazi                                                                                                                        |
-| **Browser**              | chromium                                                                                                                    |
-| **Package Managers**     | pacman + yay (AUR helper)                                                                                                   |
-| **Fonts**                | Noto                                                                                                                        |
-| **Input Method**         | fcitx5                                                                                                                      |
-| **System Monitor**       | ~~htop~~, btop, conky                                                                                                       |
-| **Miscellaneous**        | fastfetch, lazygit, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep) |
+| Type                     | Tool/Use                                                                                                                                                               |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Window Manager**       | dwm                                                                                                                                                                    |
+| **Display Manager**      | lightdm                                                                                                                                                                |
+| **Shell**                | zsh                                                                                                                                                                    |
+| **Terminal**             | alacritty                                                                                                                                                              |
+| **Terminal Multiplexer** | ~~tmux~~, zellij                                                                                                                                                       |
+| **Editor**               | neovim  + vscode                                                                                                                                                       |
+| **File Manager**         | yazi                                                                                                                                                                   |
+| **Browser**              | chromium                                                                                                                                                               |
+| **Package Managers**     | pacman + yay (AUR helper)                                                                                                                                              |
+| **Fonts**                | Noto                                                                                                                                                                   |
+| **Input Method**         | fcitx5                                                                                                                                                                 |
+| **System Monitor**       | ~~htop~~, btop, conky                                                                                                                                                  |
+| **Miscellaneous**        | fastfetch, lazygit, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep), [mcfly](https://github.com/cantino/mcfly) |
 
 <!--
 ## Usage

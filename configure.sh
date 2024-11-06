@@ -215,6 +215,9 @@ misc() {
 
     sudo pacman -S ripgrep
     which rg
+
+    sudo pacman -S mcfly
+    echo 'eval "$(mcfly init zsh)"' >>~/.zshrc
 }
 
 main() {
