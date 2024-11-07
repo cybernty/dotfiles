@@ -17,6 +17,7 @@
 | **Input Method**         | fcitx5 + [fcitx5-nord](https://github.com/tonyfettes/fcitx5-nord)                                                  |
 | **System Monitor**       | ~~htop~~, btop, conky                                                                                              |
 | **Git**                  | lazygit, git-delta                                                                                                 |
+| **Screenshot**           | flameshot                                                                                                          |
 | **Miscellaneous**        | fastfetch, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep) |
 
 <!--

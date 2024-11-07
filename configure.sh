@@ -228,6 +228,12 @@ _wireshark() {
     newgrp wireshark
 }
 
+screenshot() {
+    sudo pacman -S flameshot
+    flameshot --help
+    # flameshot gui
+}
+
 misc() {
     sudo pacman -S dua-cli \
         tree \
@@ -266,6 +272,7 @@ main() {
         file_manager
         monitor
         _wireshark
+        screenshot
         misc
     fi
     reboot
