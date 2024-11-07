@@ -258,7 +258,15 @@ misc() {
     which rg
 
     sudo pacman -S lsd eza
+    cat <<EOF >>~/.zshrc
+alias l='lsd -la'
+alias l.='lsd -ld .*'
+alias ll='lsd -l'
+EOF
+
     sudo pacman -S procs
+    echo "alias ps='procs'" >>~/.zshrc
+
     sudo pacman -S duf
     sudo pacman -S fx jq hexyl
     sudo pacman -S dog
