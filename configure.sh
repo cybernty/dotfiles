@@ -74,7 +74,7 @@ shell() {
 
     sudo pacman -S atuin
     echo 'eval "$(atuin init zsh)"' >>~/.zshrc
-    # sqlite3 -json ~/.local/share/atuin/history.db 'SELECT * FROM history ;' | jq | cat
+    # sqlite3 -json ~/.local/share/atuin/history.db 'SELECT * FROM history;' | jq | cat
 
     sudo pacman -S zoxide
     echo 'eval "$(zoxide init zsh)"' >>~/.zshrc
@@ -176,23 +176,25 @@ EOF
 }
 
 dev_env() {
-    sudo pacman -S jdk21-openjdk maven
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-    # - [Java - ArchWiki](https://wiki.archlinux.org/title/Java#Impersonate_another_window_manager)
-    #     - [Java - Arch Linux 中文维基](https://wiki.archlinuxcn.org/wiki/Java)
-    # - [Arch Linux - Package Search](https://archlinux.org/packages/?name=wmname)
-    # - [tools | suckless.org software that sucks less](https://tools.suckless.org/x/wmname/)
+    sudo pacman -S go
+
+    sudo pacman -S jdk21-openjdk maven
     sudo pacman -S wmname
     # wmname LG3D
     # idea &
+
+    sudo pacman -S nodejs npm
+    node --version
+    npm --version
 }
 
-_docker() {
+container() {
     sudo pacman -S docker
     sudo systemctl enable --now docker.service
     sudo usermod -aG docker "$USER"
     newgrp docker
-    # docker images -a; echo; docker ps -a
 
     sudo pacman -S docker-compose
     docker compose version
@@ -202,17 +204,17 @@ _docker() {
 }
 
 terminal() {
-    yay -S alacritty
+    sudo pacman -S alacritty
 }
 
 terminal_multiplexer() {
-    yay -S tmux
-    yay -S zellij
+    sudo pacman -S tmux
+    sudo pacman -S zellij
     echo "alias tmux='zellij'" >>~/.zshrc
 }
 
 file_manager() {
-    yay -S yazi
+    sudo pacman -S yazi
     echo "alias fm='yazi'" >>~/.zshrc
 }
 
@@ -234,20 +236,34 @@ screenshot() {
     # flameshot gui
 }
 
-misc() {
-    sudo pacman -S dua-cli \
-        tree \
-        unzip
-    yay -S fd
-    yay -S fzf
-    yay -S polybar
-    yay -S nmap
+office() {
+    sudo pacman -S libreoffice-fresh libreoffice-fresh-zh-cn
 
-    yay -S bat
+    yay -S wps-office-cn ttf-wps-fonts wps-office-mui-zh-cn freetype2-wps libtiff5
+}
+
+misc() {
+    sudo pacman -S dua-cli
+    sudo pacman -S tree
+    sudo pacman -S zip unzip
+    sudo pacman -S fd
+    sudo pacman -S fzf
+    sudo pacman -S polybar
+    sudo pacman -S nmap
+
+    sudo pacman -S bat
     echo "alias cat='bat'" >>~/.zshrc
 
     sudo pacman -S ripgrep
     which rg
+
+    sudo pacman -S lsd eza
+    sudo pacman -S procs
+    sudo pacman -S duf
+    sudo pacman -S fx jq hexyl
+    sudo pacman -S dog
+
+    sudo pacman -S thefuck
 }
 
 main() {
@@ -266,13 +282,14 @@ main() {
         browser
         input_method
         dev_env
-        _docker
+        container
         terminal
         terminal_multiplexer
         file_manager
         monitor
         _wireshark
         screenshot
+        office
         misc
     fi
     reboot
