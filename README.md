@@ -11,7 +11,7 @@
 | **Terminal Multiplexer** | ~~tmux~~, zellij                                                                                                                                               |
 | **Editor**               | neovim  + vscode                                                                                                                                               |
 | **File Manager**         | yazi                                                                                                                                                           |
-| **Browser**              | chromium                                                                                                                                                       |
+| **Browser**              | ~~chromium~~, chrome                                                                                                                                                       |
 | **Package Managers**     | pacman + yay (AUR helper)                                                                                                                                      |
 | **Fonts**                | Noto                                                                                                                                                           |
 | **Input Method**         | fcitx5 + [fcitx5-nord](https://github.com/tonyfettes/fcitx5-nord)                                                                                              |

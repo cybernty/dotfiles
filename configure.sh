@@ -155,7 +155,8 @@ editor() {
 }
 
 browser() {
-    sudo pacman -S chromium
+    # sudo pacman -S chromium
+    yay -S google-chrome
 }
 
 input_method() {
