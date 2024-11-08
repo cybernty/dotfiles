@@ -7,7 +7,7 @@
 | **Window Manager**       | dwm                                                                                                                                                            |
 | **Display Manager**      | lightdm                                                                                                                                                        |
 | **Shell**                | zsh + [atuin](https://github.com/atuinsh/atuin) + [zoxide](https://github.com/ajeetdsouza/zoxide)                                                              |
-| **Terminal**             | alacritty                                                                                                                                                      |
+| **Terminal**             | ~~st~~, alacritty                                                                                                                                                      |
 | **Terminal Multiplexer** | ~~tmux~~, zellij                                                                                                                                               |
 | **Editor**               | neovim  + vscode                                                                                                                                               |
 | **File Manager**         | yazi                                                                                                                                                           |
