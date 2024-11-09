@@ -23,7 +23,7 @@ echo "LANG=en_US.UTF-8" >>/etc/locale.conf
 echo "arch" >>/etc/hostname
 passwd
 
-pacman -S grub amd-ucode os-prober dhcpcd
+pacman -S grub amd-ucode os-prober networkmanager
 
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -70,7 +70,7 @@ echo "LANG=en_US.UTF-8" >>/etc/locale.conf
 echo "arch" >>/etc/hostname
 passwd
 
-pacman -S amd-ucode grub efibootmgr os-prober dhcpcd
+pacman -S amd-ucode grub efibootmgr os-prober networkmanager
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=ARCH
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=5"/' /etc/default/grub

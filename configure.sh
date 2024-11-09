@@ -30,8 +30,8 @@ parse_args() {
 }
 
 base() {
-    systemctl enable --now dhcpcd.service
-    systemctl status dhcpcd.service
+    systemctl enable --now NetworkManager.service
+    systemctl status NetworkManager.service
     ping -c3 www.google.com || {
         echo "Network not reachable."
         exit 1
