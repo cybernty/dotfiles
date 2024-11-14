@@ -249,7 +249,7 @@ misc() {
     sudo pacman -S zip unzip
     sudo pacman -S fd
     sudo pacman -S fzf
-    sudo pacman -S polybar
+    # sudo pacman -S polybar
     sudo pacman -S nmap
 
     sudo pacman -S bat

@@ -18,7 +18,7 @@
 | **System Monitor**       | ~~htop~~, btop, conky                                                                                                                                          |
 | **Git**                  | lazygit, git-delta                                                                                                                                             |
 | **Screenshot**           | flameshot                                                                                                                                                      |
-| **Miscellaneous**        | fastfetch, lazydocker, wireshark, dua-cli, fd, fzf, polybar, bat, [ripgrep](https://github.com/BurntSushi/ripgrep), [thefuck](https://github.com/nvbn/thefuck) |
+| **Miscellaneous**        | fastfetch, lazydocker, wireshark, dua-cli, fd, fzf, bat, [ripgrep](https://github.com/BurntSushi/ripgrep), [thefuck](https://github.com/nvbn/thefuck) |
 
 <!--
 ## Usage
