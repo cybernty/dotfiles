@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ls /sys/firmware/efi/efivars
 ping -c3 archlinux.org
 
@@ -9,9 +7,9 @@ timedatectl status
 fdisk -l
 sfdisk /dev/sda < sda.sfdisk
 
-mkfs.vfat /dev/sda1
-mkfs.ext4 /dev/sda2
-mkfs.ext4 /dev/sda3
+mkfs.vfat -n EFI /dev/sda1
+mkfs.ext4 -L ROOT /dev/sda2
+mkfs.ext4 -L HOME /dev/sda3
 
 mount /dev/sda2 /mnt
 mkdir -p /mnt/efi
@@ -35,9 +33,10 @@ passwd
 pacman -S amd-ucode grub efibootmgr os-prober networkmanager
 
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=ARCH
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=5"/' /etc/default/grub
+sed -i '/GRUB_CMDLINE_LINUX_DEFAULT=/c\GRUB_CMDLINE_LINUX_DEFAULT="loglevel=5"' /etc/default/grub
 
 grub-mkconfig -o /boot/grub/grub.cfg
 exit
 umount -R /mnt
+sync
 reboot

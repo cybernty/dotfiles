@@ -25,7 +25,7 @@
 
 1. install arch linux: [guide](./install.sh)
 2. network: `systemctl start NetworkManager.service`
-3. dotfiles: `pacman -S git && cd /tmp && git clone --depth 1 https://github.com/cybernty/dotfiles.git && cd dotfiles`
+3. dotfiles: `pacman -S git && git clone --depth 1 https://github.com/cybernty/dotfiles.git && cd dotfiles`
 4. basic config: `./configure.sh`
-5. advance: `cd /tmp && git clone --depth 1 https://github.com/cybernty/dotfiles.git && ./dotfiles/configure.sh`
+5. advanced config: `sudo mv /root/dotfiles . && sudo chown -R dev:dev dotfiles && cd dotfiles && ./configure.sh`
 -->
