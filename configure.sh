@@ -29,7 +29,7 @@ parse_args() {
     done
 }
 
-_base() {
+cfg::base() {
     systemctl enable --now NetworkManager.service
     systemctl status NetworkManager.service
     ping -c3 www.google.com || {
@@ -55,14 +55,14 @@ _base() {
     reboot
 }
 
-_fonts() {
+cfg::fonts() {
     sudo pacman -S noto-fonts \
         noto-fonts-cjk \
         noto-fonts-emoji \
         noto-fonts-extra
 }
 
-_shell() {
+cfg::shell() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -79,7 +79,7 @@ _shell() {
     echo 'eval "$(zoxide init zsh)"' >>~/.zshrc
 }
 
-_window_manager() {
+cfg::window_manager() {
     sudo pacman -S xorg xorg-xinit
 
     make
@@ -87,7 +87,7 @@ _window_manager() {
     # startx
 }
 
-_display_manager() {
+cfg::display_manager() {
     sudo pacman -S lightdm lightdm-gtk-greeter
 
     sudo mkdir -p /usr/share/xsessions
@@ -105,7 +105,7 @@ EOF
     sudo systemctl enable lightdm.service
 }
 
-_git() {
+cfg::git() {
     git config --global user.name local
     git config --global user.email local
     git config --global init.defaultBranch main
@@ -139,26 +139,26 @@ EOF
 EOF
 }
 
-_aur() {
+cfg::aur() {
     git clone --depth 1 https://aur.archlinux.org/yay.git && cd yay
     makepkg -si
     yay --version
     pacman -Qs yay
 }
 
-_editor() {
+cfg::editor() {
     yay -S visual-studio-code-bin
 
     [ -d ~/.config/nvim ] && mv ~/.config/nvim{,.bak}
     git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
 }
 
-_browser() {
+cfg::browser() {
     # sudo pacman -S chromium
     yay -S google-chrome
 }
 
-_input_method() {
+cfg::input_method() {
     sudo pacman -S fcitx5-im
     sudo pacman -S fcitx5-chinese-addons
     mkdir -p ~/.config/environment.d
@@ -175,7 +175,7 @@ EOF
     # fcitx5-configtool
 }
 
-_dev_env() {
+cfg::dev_env() {
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
     sudo pacman -S go
@@ -190,7 +190,7 @@ _dev_env() {
     npm --version
 }
 
-_container() {
+cfg::container() {
     sudo pacman -S docker
     sudo systemctl enable --now docker.service
     sudo usermod -aG docker "$USER"
@@ -203,50 +203,50 @@ _container() {
     echo "alias lzd='lazydocker'" >>~/.zshrc
 }
 
-_terminal() {
+cfg::terminal() {
     sudo pacman -S alacritty
 }
 
-_terminal_multiplexer() {
+cfg::terminal_multiplexer() {
     sudo pacman -S tmux
     sudo pacman -S zellij
     echo "alias tmux='zellij'" >>~/.zshrc
 }
 
-_file_manager() {
+cfg::file_manager() {
     sudo pacman -S yazi
     echo "alias fm='yazi'" >>~/.zshrc
 }
 
-_monitor() {
+cfg::monitor() {
     sudo pacman -S htop
     sudo pacman -S btop
     sudo pacman -S conky
 }
 
-_wireshark() {
+cfg::wireshark() {
     sudo pacman -S wireshark-qt
     sudo usermod -aG wireshark "$USER"
     newgrp wireshark
 }
 
-_screenshot() {
+cfg::screenshot() {
     sudo pacman -S flameshot
     flameshot --help
     # flameshot gui
 }
 
-_office() {
+cfg::office() {
     sudo pacman -S libreoffice-fresh libreoffice-fresh-zh-cn
 
     yay -S wps-office-cn ttf-wps-fonts wps-office-mui-zh-cn freetype2-wps libtiff5
 }
 
-_sound() {
+cfg::sound() {
     sudo pacman -S alsa-utils pulseaudio pavucontrol
 }
 
-_misc() {
+cfg::misc() {
     sudo pacman -S dua-cli
     sudo pacman -S tree
     sudo pacman -S zip unzip
@@ -282,28 +282,28 @@ main() {
     parse_args "$@"
 
     if (("$(id -u)" == 0)); then
-        _base
+        cfg::base
     else
-        _fonts
-        _shell
-        _window_manager
-        _display_manager
-        _git
-        _aur
-        _editor
-        _browser
-        _input_method
-        _dev_env
-        _container
-        _terminal
-        _terminal_multiplexer
-        _file_manager
-        _monitor
-        _wireshark
-        _screenshot
-        _office
-        _sound
-        _misc
+        cfg::fonts
+        cfg::shell
+        cfg::window_manager
+        cfg::display_manager
+        cfg::git
+        cfg::aur
+        cfg::editor
+        cfg::browser
+        cfg::input_method
+        cfg::dev_env
+        cfg::container
+        cfg::terminal
+        cfg::terminal_multiplexer
+        cfg::file_manager
+        cfg::monitor
+        cfg::wireshark
+        cfg::screenshot
+        cfg::office
+        cfg::sound
+        cfg::misc
     fi
     reboot
 }
