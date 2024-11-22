@@ -246,7 +246,7 @@ cfg::sound() {
 
 cfg::zram() {
     sudo pacman -S zram-generator
-    cat <<EOF >/etc/systemd/zram-generator.conf
+    cat <<EOF | sudo tee -a /etc/systemd/zram-generator.conf
 [zram0]
 zram-size = min(ram, 8192)
 compression-algorithm = zstd
