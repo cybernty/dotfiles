@@ -1,0 +1,16 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/sda3 LABEL=dev-arch-btrfs
+UUID=b5efa31f-5df8-4302-bf96-8006bc8341be	/         	btrfs     	rw,relatime,compress=zstd:3,discard=async,space_cache=v2,subvol=/@	0 0
+
+# /dev/sda1
+UUID=34E0-E9F7      	/efi      	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+# /dev/sda2 LABEL=BOOT
+UUID=e099a8f0-a74f-47b9-97b0-fa9cd7b0b2fe	/boot     	ext4      	rw,relatime	0 2
+
+# /dev/sda3 LABEL=dev-arch-btrfs
+UUID=b5efa31f-5df8-4302-bf96-8006bc8341be	/home     	btrfs     	rw,relatime,compress=zstd:3,discard=async,space_cache=v2,subvol=/@home	0 0
+
