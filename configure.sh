@@ -29,7 +29,7 @@ parse_args() {
     done
 }
 
-base() {
+_base() {
     systemctl enable --now NetworkManager.service
     systemctl status NetworkManager.service
     ping -c3 www.google.com || {
@@ -40,7 +40,6 @@ base() {
     sed -i 's/#Color/Color/' /etc/pacman.conf
     pacman -Syu
     pacman -S \
-        base-devel \
         fastfetch \
         git \
         man \
@@ -56,14 +55,14 @@ base() {
     reboot
 }
 
-fonts() {
+_fonts() {
     sudo pacman -S noto-fonts \
         noto-fonts-cjk \
         noto-fonts-emoji \
         noto-fonts-extra
 }
 
-shell() {
+_shell() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -80,7 +79,7 @@ shell() {
     echo 'eval "$(zoxide init zsh)"' >>~/.zshrc
 }
 
-window_manager() {
+_window_manager() {
     sudo pacman -S xorg xorg-xinit
 
     make
@@ -88,7 +87,7 @@ window_manager() {
     # startx
 }
 
-display_manager() {
+_display_manager() {
     sudo pacman -S lightdm lightdm-gtk-greeter
 
     sudo mkdir -p /usr/share/xsessions
@@ -140,26 +139,26 @@ EOF
 EOF
 }
 
-aur() {
+_aur() {
     git clone --depth 1 https://aur.archlinux.org/yay.git && cd yay
     makepkg -si
     yay --version
     pacman -Qs yay
 }
 
-editor() {
+_editor() {
     yay -S visual-studio-code-bin
 
     [ -d ~/.config/nvim ] && mv ~/.config/nvim{,.bak}
     git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
 }
 
-browser() {
+_browser() {
     # sudo pacman -S chromium
     yay -S google-chrome
 }
 
-input_method() {
+_input_method() {
     sudo pacman -S fcitx5-im
     sudo pacman -S fcitx5-chinese-addons
     mkdir -p ~/.config/environment.d
@@ -176,7 +175,7 @@ EOF
     # fcitx5-configtool
 }
 
-dev_env() {
+_dev_env() {
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
     sudo pacman -S go
@@ -191,7 +190,7 @@ dev_env() {
     npm --version
 }
 
-container() {
+_container() {
     sudo pacman -S docker
     sudo systemctl enable --now docker.service
     sudo usermod -aG docker "$USER"
@@ -204,22 +203,22 @@ container() {
     echo "alias lzd='lazydocker'" >>~/.zshrc
 }
 
-terminal() {
+_terminal() {
     sudo pacman -S alacritty
 }
 
-terminal_multiplexer() {
+_terminal_multiplexer() {
     sudo pacman -S tmux
     sudo pacman -S zellij
     echo "alias tmux='zellij'" >>~/.zshrc
 }
 
-file_manager() {
+_file_manager() {
     sudo pacman -S yazi
     echo "alias fm='yazi'" >>~/.zshrc
 }
 
-monitor() {
+_monitor() {
     sudo pacman -S htop
     sudo pacman -S btop
     sudo pacman -S conky
@@ -231,19 +230,23 @@ _wireshark() {
     newgrp wireshark
 }
 
-screenshot() {
+_screenshot() {
     sudo pacman -S flameshot
     flameshot --help
     # flameshot gui
 }
 
-office() {
+_office() {
     sudo pacman -S libreoffice-fresh libreoffice-fresh-zh-cn
 
     yay -S wps-office-cn ttf-wps-fonts wps-office-mui-zh-cn freetype2-wps libtiff5
 }
 
-misc() {
+_sound() {
+    sudo pacman -S alsa-utils pulseaudio pavucontrol
+}
+
+_misc() {
     sudo pacman -S dua-cli
     sudo pacman -S tree
     sudo pacman -S zip unzip
@@ -279,27 +282,28 @@ main() {
     parse_args "$@"
 
     if (("$(id -u)" == 0)); then
-        base
+        _base
     else
-        fonts
-        shell
-        window_manager
-        display_manager
+        _fonts
+        _shell
+        _window_manager
+        _display_manager
         _git
-        aur
-        editor
-        browser
-        input_method
-        dev_env
-        container
-        terminal
-        terminal_multiplexer
-        file_manager
-        monitor
+        _aur
+        _editor
+        _browser
+        _input_method
+        _dev_env
+        _container
+        _terminal
+        _terminal_multiplexer
+        _file_manager
+        _monitor
         _wireshark
-        screenshot
-        office
-        misc
+        _screenshot
+        _office
+        _sound
+        _misc
     fi
     reboot
 }
