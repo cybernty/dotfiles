@@ -244,6 +244,16 @@ cfg::sound() {
     sudo pacman -S alsa-utils pulseaudio pavucontrol
 }
 
+cfg::zram() {
+    sudo pacman -S zram-generator
+    cat <<EOF >/etc/systemd/zram-generator.conf
+[zram0]
+zram-size = min(ram, 8192)
+compression-algorithm = zstd
+EOF
+    zramctl
+}
+
 cfg::misc() {
     sudo pacman -S fastfetch
     sudo pacman -S tree
@@ -302,6 +312,7 @@ main() {
         cfg::screenshot
         cfg::office
         cfg::sound
+        cfg::zram
         cfg::misc
     fi
 
