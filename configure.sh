@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 set -Eeuxo pipefail
 
 help() {
@@ -40,7 +40,6 @@ cfg::base() {
     sed -i 's/#Color/Color/' /etc/pacman.conf
     pacman -Syu
     pacman -S \
-        fastfetch \
         git \
         man \
         neovim \
@@ -50,8 +49,8 @@ cfg::base() {
 
     useradd -mG wheel -s /bin/zsh dev
     passwd dev
-    # visudo
     echo "dev ALL=(ALL) ALL" | EDITOR="tee -a" visudo
+
     reboot
 }
 
@@ -161,8 +160,7 @@ cfg::browser() {
 cfg::input_method() {
     sudo pacman -S fcitx5-im
     sudo pacman -S fcitx5-chinese-addons
-    mkdir -p ~/.config/environment.d
-    cat <<EOF | sudo tee ~/.config/environment.d/im.conf
+    cat <<EOF | sudo tee -a /etc/environment
 GTK_IM_MODULE=fcitx
 QT_IM_MODULE=fcitx
 XMODIFIERS=@im=fcitx
@@ -172,6 +170,7 @@ EOF
     echo 'fcitx5 -d &>/dev/null' >>~/.zshrc
 
     sudo pacman -S fcitx5-nord
+
     # fcitx5-configtool
 }
 
@@ -219,7 +218,6 @@ cfg::file_manager() {
 }
 
 cfg::monitor() {
-    sudo pacman -S htop
     sudo pacman -S btop
     sudo pacman -S conky
 }
@@ -239,7 +237,7 @@ cfg::screenshot() {
 cfg::office() {
     sudo pacman -S libreoffice-fresh libreoffice-fresh-zh-cn
 
-    yay -S wps-office-cn ttf-wps-fonts wps-office-mui-zh-cn freetype2-wps libtiff5
+    # yay -S wps-office-cn ttf-wps-fonts wps-office-mui-zh-cn freetype2-wps libtiff5
 }
 
 cfg::sound() {
@@ -247,13 +245,18 @@ cfg::sound() {
 }
 
 cfg::misc() {
-    sudo pacman -S dua-cli
+    sudo pacman -S fastfetch
     sudo pacman -S tree
     sudo pacman -S zip unzip
+    sudo pacman -S nmap
+
+    sudo pacman -S dua-cli
     sudo pacman -S fd
     sudo pacman -S fzf
-    # sudo pacman -S polybar
-    sudo pacman -S nmap
+    sudo pacman -S duf
+    sudo pacman -S jq fx
+    sudo pacman -S hexyl
+    sudo pacman -S dog
 
     sudo pacman -S bat
     echo "alias cat='bat'" >>~/.zshrc
@@ -261,7 +264,7 @@ cfg::misc() {
     sudo pacman -S ripgrep
     which rg
 
-    sudo pacman -S lsd eza
+    sudo pacman -S lsd
     cat <<EOF >>~/.zshrc
 alias l='lsd -la'
 alias l.='lsd -ld .*'
@@ -270,10 +273,6 @@ EOF
 
     sudo pacman -S procs
     echo "alias ps='procs'" >>~/.zshrc
-
-    sudo pacman -S duf
-    sudo pacman -S fx jq hexyl
-    sudo pacman -S dog
 
     sudo pacman -S thefuck
 }
@@ -305,6 +304,7 @@ main() {
         cfg::sound
         cfg::misc
     fi
+
     reboot
 }
 
