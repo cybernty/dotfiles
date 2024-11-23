@@ -242,6 +242,7 @@ cfg::office() {
 
 cfg::sound() {
     sudo pacman -S alsa-utils pulseaudio pavucontrol
+    # alsamixer
 }
 
 cfg::zram() {
