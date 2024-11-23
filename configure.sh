@@ -255,6 +255,10 @@ EOF
     zramctl
 }
 
+cfg::virtualization() {
+    sudo pacman -S qemu-base libvirt virt-install
+}
+
 cfg::misc() {
     sudo pacman -S fastfetch
     sudo pacman -S tree
@@ -314,6 +318,7 @@ main() {
         cfg::office
         cfg::sound
         cfg::zram
+        cfg::virtualization
         cfg::misc
     fi
 
