@@ -109,12 +109,20 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
+alias lg='lazygit'
 fcitx5 -d &>/dev/null
+alias lzd='lazydocker'
+alias tmux='zellij'
+alias fm='yazi'
 alias cat='bat'
+alias l='lsd -la'
+alias l.='lsd -ld .*'
+alias ll='lsd -l'
+alias ps='procs'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-alias lg='lazygit'
-alias tmux='zellij'
-alias fm='yazi'
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/dev/.local/share/JetBrains/Toolbox/bin
+
+eval $(thefuck --alias)
