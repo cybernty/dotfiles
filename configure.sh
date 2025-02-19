@@ -105,11 +105,11 @@ EOF
 }
 
 cfg::git() {
-    git config --global user.name local
-    git config --global user.email local
+    git config --global user.name 'dev'
+    git config --global user.email 'dev'
     git config --global init.defaultBranch main
 
-    ssh-keygen -f ~/.ssh/github
+    ssh-keygen -f ~/.ssh/github -N '' -q
     cat <<EOF >~/.ssh/config
 Host github.com
     HostName github.com
@@ -204,6 +204,7 @@ cfg::container() {
 
 cfg::terminal() {
     sudo pacman -S alacritty
+    sudo pacman -S kitty
 }
 
 cfg::terminal_multiplexer() {
@@ -259,6 +260,11 @@ cfg::virtualization() {
     sudo pacman -S qemu-base libvirt virt-install
 }
 
+cfg::im() {
+    sudo pacman -S telegram-desktop
+    sudo pacman -S discord
+}
+
 cfg::misc() {
     sudo pacman -S fastfetch
     sudo pacman -S tree
@@ -290,6 +296,9 @@ EOF
     echo "alias ps='procs'" >>~/.zshrc
 
     sudo pacman -S thefuck
+
+    sudo pacman -S tldr
+    tldr --update
 }
 
 main() {
@@ -319,6 +328,7 @@ main() {
         cfg::sound
         cfg::zram
         cfg::virtualization
+        cfg::im
         cfg::misc
     fi
 
