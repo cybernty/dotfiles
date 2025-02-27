@@ -59,6 +59,9 @@ cfg::fonts() {
         noto-fonts-cjk \
         noto-fonts-emoji \
         noto-fonts-extra
+
+    sudo pacman -S ttf-meslo-nerd \
+        ttf-jetbrains-mono-nerd
 }
 
 cfg::shell() {
